@@ -59,6 +59,8 @@ print('les arrondissements sont : ',house_data['arrondissement'].unique())
 
 # Streamlit part:
 
+st.set_params(wide=True)
+
 st.title('Prédictiion de prix immobilier à Paris')
 
 c1,c2,c3 = st.columns(3)
