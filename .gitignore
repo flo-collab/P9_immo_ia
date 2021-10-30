@@ -4,4 +4,5 @@ ppt/
 img/
 *.docx
 stuff_alexis/
-
+*.pyc
+__pycache__/
