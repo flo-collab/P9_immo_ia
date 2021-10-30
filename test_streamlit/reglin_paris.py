@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pickle
 
 # On charge le dataset
 house_data = pd.read_csv("house_data.csv")
@@ -32,6 +33,8 @@ from sklearn.metrics import mean_squared_error
 model_regLin = LinearRegression()
 model_regLin.fit(X_train, y_train)
 
+
+
 # on regarde les resultats : Les coefficients
 print('Coefficients: \n', model_regLin.coef_)
 
@@ -42,6 +45,11 @@ y_train_predict = model_regLin.predict(X_train)
 rmse = (np.sqrt(mean_squared_error(y_train, y_train_predict)))
 r2 = r2_score(y_train, y_train_predict)
 print ('Le score r² est :',r2,'\nLe score RMSE est : ',rmse)
+
+
+# save the model to disk
+filename = 'reglin_paris_model.sav'
+pickle.dump(model_regLin, open(filename, 'wb'))
 
 
 g = sns.lmplot(
@@ -59,7 +67,7 @@ print('les arrondissements sont : ',house_data['arrondissement'].unique())
 
 # Streamlit part:
 
-st.set_params(wide=True)
+#st.set_page_config(layout="wide")
 
 st.title('Prédictiion de prix immobilier à Paris')
 

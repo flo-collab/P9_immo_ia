@@ -3,4 +3,6 @@ test_streamlit/.venv/
 ppt/
 img/
 *.docx
-
+stuff_alexis/
+*.pyc
+__pycache__/
