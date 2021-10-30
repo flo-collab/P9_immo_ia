@@ -31,3 +31,20 @@ def check_if_can_be_int(df,col):
 def zscore(df_col):
   zscore = (df_col - df_col.mean()) / df_col.std()
   return zscore
+
+
+def make_one_hot(df):
+  df['Code type local'] = df['Code type local'].fillna(0)
+  df['Type local'] =df['Type local'].fillna('none')
+  encode = OneHotEncoder(handle_unknown='ignore').fit(df[['Type local']])
+  encoded = encode.transform(df[['Type local']])
+  df_encoded = pd.DataFrame(encoded.toarray(), columns = ['is_'+i for i in encode.categories_[0]])
+  df_dupli_1hot = pd.concat([df, df_encoded], axis=1)
+  return df_dupli_1hot
+
+def make_dummies(df):
+  df['Code type local'] = df['Code type local'].fillna(0)
+  df['Type local'] =df['Type local'].fillna('none')
+  dummies_local = pd.get_dummies(df['Type local'], prefix='nb')
+  df_out = pd.concat([df, dummies_local], axis=1)
+  return df_out
