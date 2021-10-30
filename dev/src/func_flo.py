@@ -48,3 +48,22 @@ def make_dummies(df):
   dummies_local = pd.get_dummies(df['Type local'], prefix='nb')
   df_out = pd.concat([df, dummies_local], axis=1)
   return df_out
+
+
+def m2_terrain(df:pd.DataFrame):
+  df.insert(loc=df.shape[1]-1,column='m2_terrain',value=0)
+  df.loc[(df['Surface terrain']!=df['Surface terrain'].shift(-1),'m2_terrain')]=df['Surface terrain']
+  return df
+
+def modif_colname(df):
+  df.columns = map(lambda x:x.lower().replace(' ','_'), df.columns)
+  return df
+
+def make_m2(df:pd.DataFrame):
+  df.insert(loc=df.shape[1]-1,column='m2_appartement',value=0)
+  df['m2_appartement']=df['surface_bati']*df['nb_appartement']
+  df.insert(loc=df.shape[1]-1,column='m2_maison',value=0)
+  df['m2_maison']=df['surface_bati']*df['nb_maison']
+  df.insert(loc=df.shape[1]-1,column='m2_local',value=0)
+  df['m2_local']=df['surface_bati']*df['nb_local']
+  return df

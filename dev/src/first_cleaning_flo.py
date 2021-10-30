@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from src.func_flo import *
 
 def dirty_cleaning(df_original):
     df_immo_full = drop_empty_col(df_original,0.99)
@@ -33,7 +34,7 @@ def dirty_cleaning(df_original):
 
     return df_immo_full
 
-def make_one_hot(df_immo_full):
+def make_one_hot_1st(df_immo_full):
     #OneHot
     df_immo_full['Code type local'] = df_immo_full['Code type local'].fillna(0)
     df_immo_full['Type local'] =df_immo_full['Type local'].fillna('none')
