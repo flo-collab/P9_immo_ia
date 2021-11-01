@@ -67,3 +67,22 @@ def make_m2(df:pd.DataFrame):
   df.insert(loc=df.shape[1]-1,column='m2_local',value=0)
   df['m2_local']=df['surface_bati']*df['nb_local']
   return df
+
+
+def effectif_moyen(cluster_model):
+  return len(cluster_model.labels_)/len(set(cluster_model.labels_))
+
+
+def mad(cluster_model):
+  unique, counts = np.unique(cluster_model, return_counts=True)
+  mad_score = 0
+  for i in counts:
+    for j in counts:
+      mad_score = mad_score + abs(i-j)
+  mad_score = mad_score/len(counts)**2
+  return mad_score
+
+
+def gini_cluster(cluster_model):
+  gini = mad(cluster_model)/(2*effectif_moyen(cluster_model))
+  return gini
