@@ -34,6 +34,10 @@ def dirty_cleaning(df_original):
 
     return df_immo_full
 
+
+
+
+
 def make_one_hot_1st(df_immo_full):
     #OneHot
     df_immo_full['Code type local'] = df_immo_full['Code type local'].fillna(0)
@@ -47,21 +51,3 @@ def make_one_hot_1st(df_immo_full):
     df_immo_1hot = pd.concat([df_immo_full, df_1hot], axis=1)
     df_immo_1hot.drop(columns = 'is_Local industriel. commercial ou assimilé', inplace = True)
     return df_immo_1hot
-
-
-
-    def effectif_moyen(cluster_model):
-  return len(cluster_model.labels_)/len(set(cluster_model.labels_))
-
-def mad(cluster_model):
-  unique, counts = np.unique(cluster_model, return_counts=True)
-  mad_score = 0
-  for i in counts:
-    for j in counts:
-      mad_score = mad_score + abs(i-j)
-  mad_score = mad_score/len(counts)**2
-  return mad_score
-
-def gini_cluster(cluster_model):
-  gini = mad(cluster_model)/(2*effectif_moyen(cluster_model))
-  return gini

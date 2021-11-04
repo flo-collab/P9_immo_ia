@@ -74,7 +74,7 @@ def effectif_moyen(cluster_model):
 
 
 def mad(cluster_model):
-  unique, counts = np.unique(cluster_model, return_counts=True)
+  unique, counts = np.unique(cluster_model.labels_, return_counts=True)
   mad_score = 0
   for i in counts:
     for j in counts:
